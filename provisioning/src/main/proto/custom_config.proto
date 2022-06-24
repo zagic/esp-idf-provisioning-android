@@ -1,0 +1,38 @@
+syntax = "proto3";
+package espressif;
+
+enum CustomConfigStatus {
+    ConfigSuccess = 0;
+    ConfigFail = 1;
+    ConfigNotSupport = 2;
+}
+
+enum CustomCommand {
+    ConfigCertID = 0;
+    ReadCertID = 1;
+    ConfigCertPem = 2;
+    ReadCertPem = 3;
+    ConfigPrivateKey = 4;
+    ReadPrivateKey = 5;
+    ConfigPreSignCert = 6;
+    ReadPreSignCert= 7;
+    ConfigThingName = 8;
+    ReadThingName = 9;
+    ConfigMQTTEndPoint = 10;
+    ReadMQTTEndPoint = 11;
+    ConfigMAC = 12;
+    ReadMAC= 13;
+    ConfigSerialID = 14;
+    ReadSerialID= 15;
+
+}
+
+message CustomConfigRequest {
+    string info = 1;
+    CustomCommand cmd = 2;
+}
+
+message CustomConfigResponse {
+    CustomConfigStatus status = 1;
+    string message = 2;
+}

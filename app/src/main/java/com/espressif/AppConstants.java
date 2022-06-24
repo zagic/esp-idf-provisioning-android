@@ -14,6 +14,8 @@
 
 package com.espressif;
 
+import android.os.Environment;
+
 public class AppConstants {
 
     // Keys used to pass data between activities and to store data in SharedPreference.
@@ -34,4 +36,7 @@ public class AppConstants {
     public static final String DEVICE_TYPE_BLE = "ble";
     public static final String DEVICE_TYPE_BOTH = "both";
     public static final String DEVICE_TYPE_DEFAULT = DEVICE_TYPE_BOTH;
+
+
+    public static final String APP_PATH = Environment.getExternalStorageDirectory() + "/ESP32Provision/";
 }

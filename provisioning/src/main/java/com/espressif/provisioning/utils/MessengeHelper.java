@@ -19,6 +19,7 @@ import com.google.protobuf.ByteString;
 
 import espressif.WifiConfig;
 import espressif.WifiScan;
+import espressif.CustomConfig;
 
 public class MessengeHelper {
 
@@ -121,5 +122,16 @@ public class MessengeHelper {
                 .setMsg(WifiConfig.WiFiConfigMsgType.TypeCmdGetStatus)
                 .build();
         return wiFiConfigPayload.toByteArray();
+    }
+
+    // Send Wi-Fi Scan command
+    public static byte[] prepareCustomMessage(String message, CustomConfig.CustomCommand cmd) {
+        CustomConfig.CustomConfigRequest customConfig = CustomConfig.CustomConfigRequest
+                .newBuilder()
+                .setInfo(message)
+                .setCmd(cmd)
+                .build();
+
+        return customConfig.toByteArray();
     }
 }

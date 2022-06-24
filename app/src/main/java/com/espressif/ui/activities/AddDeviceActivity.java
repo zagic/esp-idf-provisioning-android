@@ -65,6 +65,8 @@ public class AddDeviceActivity extends AppCompatActivity {
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final int REQUEST_ACCESS_FINE_LOCATION = 2;
     private static final int REQUEST_ENABLE_BT = 3;
+    private static final int REQUEST_READ_STORAGE = 4;
+    private static final int REQUEST_WRITE_STORAGE = 5;
 
     private TextView tvTitle, tvBack, tvCancel;
     private CardView btnAddManually;
@@ -171,6 +173,14 @@ public class AddDeviceActivity extends AppCompatActivity {
             initialiseDetectorsAndSources();
 
         } else if (requestCode == REQUEST_ACCESS_FINE_LOCATION) {
+
+            initialiseDetectorsAndSources();
+        }
+        else if (requestCode == REQUEST_READ_STORAGE) {
+
+            initialiseDetectorsAndSources();
+        }
+        else if (requestCode == REQUEST_WRITE_STORAGE) {
 
             initialiseDetectorsAndSources();
         }
@@ -297,7 +307,9 @@ public class AddDeviceActivity extends AppCompatActivity {
 
         if (ActivityCompat.checkSelfPermission(AddDeviceActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
             provisionManager.scanQRCode(codeScanner, qrCodeScanListener);
 //            cameraPreview.setVisibility(View.VISIBLE);
@@ -322,7 +334,15 @@ public class AddDeviceActivity extends AppCompatActivity {
 
             ActivityCompat.requestPermissions(AddDeviceActivity.this, new
                     String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_ACCESS_FINE_LOCATION);
-        } else if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        } else if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(AddDeviceActivity.this, new
+                    String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_STORAGE);
+        } else if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+        ActivityCompat.requestPermissions(AddDeviceActivity.this, new
+                String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_READ_STORAGE);
+        }else if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(AddDeviceActivity.this, new
                     String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_ACCESS_FINE_LOCATION);

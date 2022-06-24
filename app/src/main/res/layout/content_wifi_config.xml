@@ -22,12 +22,24 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textSize="18sp" />
+    <Spinner
+        android:id="@+id/certificate_spinner"
+        android:layout_below="@id/setup_instructions_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
+    <include
+        android:id="@+id/btn_certificate_provisiong"
+        layout="@layout/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/certificate_spinner"
+        android:layout_margin="@dimen/margin_32" />
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ssid_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/setup_instructions_view"
+        android:layout_below="@id/btn_certificate_provisiong"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="30dp">

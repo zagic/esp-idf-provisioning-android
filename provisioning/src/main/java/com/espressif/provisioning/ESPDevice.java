@@ -58,6 +58,7 @@ import java.util.List;
 import java.util.UUID;
 
 import espressif.Constants;
+import espressif.CustomConfig;
 import espressif.WifiConfig;
 import espressif.WifiConstants;
 import espressif.WifiScan;
@@ -486,6 +487,11 @@ public class ESPDevice {
         } else {
             startNetworkScan();
         }
+    }
+    public void customDataProvision(final String customMesage, CustomConfig.CustomCommand cmd, ResponseListener r){
+        byte[] message = MessengeHelper.prepareCustomMessage(customMesage,cmd);
+        Log.d(TAG, "Sending message:"+ (new String(message)));
+        sendDataToCustomEndPoint(ESPConstants.HANDLER_CUSTOM_CONFIG, message, r);
     }
 
     /**
