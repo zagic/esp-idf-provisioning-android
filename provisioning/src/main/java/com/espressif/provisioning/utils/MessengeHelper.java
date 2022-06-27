@@ -16,6 +16,9 @@
 package com.espressif.provisioning.utils;
 
 import com.google.protobuf.ByteString;
+import com.google.protobuf.InvalidProtocolBufferException;
+
+import org.apache.commons.lang3.ObjectUtils;
 
 import espressif.WifiConfig;
 import espressif.WifiScan;
@@ -124,7 +127,7 @@ public class MessengeHelper {
         return wiFiConfigPayload.toByteArray();
     }
 
-    // Send Wi-Fi Scan command
+    // Prepare custom message
     public static byte[] prepareCustomMessage(String message, CustomConfig.CustomCommand cmd) {
         CustomConfig.CustomConfigRequest customConfig = CustomConfig.CustomConfigRequest
                 .newBuilder()
@@ -133,5 +136,25 @@ public class MessengeHelper {
                 .build();
 
         return customConfig.toByteArray();
+    }
+    // Decode custom message
+    public static parsedCustomMessage parseCustomMessage(byte[] message){
+        try {
+            CustomConfig.CustomConfigResponse resp = CustomConfig.CustomConfigResponse.parseFrom(message);
+            parsedCustomMessage tr = new parsedCustomMessage();
+            tr.status = resp.getStatus();
+            tr.message =resp.getMessage();
+            return tr;
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+    public static class parsedCustomMessage{
+        public CustomConfig.CustomConfigStatus status;
+        public String message;
     }
 }
